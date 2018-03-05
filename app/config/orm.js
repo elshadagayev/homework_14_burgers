@@ -9,6 +9,7 @@ const orm = {
     const queryString = "insert into burgers (name) values(?)";
     connection.query(queryString, [name], function(err, result) {
       if(err) throw err;
+      
       callback(result.insertId);
     });
   },
