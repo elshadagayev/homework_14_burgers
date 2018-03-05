@@ -33,9 +33,9 @@ connection.connect(function(err) {
   	console.log(err, data);
   });
 
-  /*connection.query("truncate table burgers", function(err, data) {
+  connection.query("truncate table burgers", function(err, data) {
   	console.log(err, data);
-  });*/
+  });
 });
 
 module.exports = connection;
