@@ -15,7 +15,7 @@ const db_config_dev = {
 }
 
 
-var connection = mysql.createConnection(db_config_dev);
+var connection = mysql.createConnection(db_config_pub);
 
 connection.connect(function(err) {
   if (err) {
