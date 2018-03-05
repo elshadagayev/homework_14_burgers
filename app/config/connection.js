@@ -22,6 +22,10 @@ connection.connect(function(err) {
   `, function(err, data) {
   	console.log(err, data);
   });
+
+  connection.query("alter table burgers", function(err, data) {
+  	console.log(err, data);
+  });
 });
 
 module.exports = connection;
