@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Burgers</title>
+
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- Font Awesome Glyphicons -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="jumbotron">
+      <h1>Burgers</h1>
+      <hr>
+        <div class="form-group">
+        <h3>Eat-Da-Burger!</h3>
+        <div class="row">
+          <div class="col-lg-6" id="left"></div>
+          <div class="col-lg-6" id="right"></div>
+        </div>
+        <form>
+          <input type="text" id="burger" class="form-control">
+          <button id="submit" type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <a href="https://github.com/elshadagayev/homework_13_friendfinder">GitHub Repo</a></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+  $(document).ready(function() {
+    $('form').on('submit', function(e) {
+      e.preventDefault();
+      insertBurger();
+    })
+    getBurgers();
+
+    $('#submit').on('click', insertBurger);
+  });
+
+  function getBurgers () {
+    $.ajax({
+      url: '/api/burgers',
+      method: 'GET',
+      dataType: 'JSON',
+    }).then(function(res) {
+      $('#left,#right').html('');
+      for(let i in res) {
+        var burger = res[i];
+        if(burger.devoured) {
+          let div = $('<div/>');
+          div.html(burger.id + ' ' + burger.name);
+          $('#right').append(div);
+        } else {
+          let div = $('<div/>');
+          let button = $('<button />');
+          div.append(burger.id);
+          div.append(burger.name);
+          div.append(button);
+          button.html('Devour it!');
+          button.on('click', function() {
+            return (function(burger){
+              $.ajax({
+                url: '/api/burgers',
+                method: 'PUT',
+                dataType: 'JSON',
+                data: {
+                  id: burger.id,
+                  devoured: true
+                },
+                complete: function () {
+                  getBurgers();
+                }
+              });
+            })(res[i]);
+          });
+          $('#left').append(div)
+        }
+      }
+    });
+  }
+
+  function insertBurger() {
+      const name = $('#burger').val().trim();
+      if(!name)
+        return alert("Type burger name");
+      $.ajax({
+        url: '/api/burgers/new',
+        method: 'POST',
+        dataType: 'JSON',
+        data: {
+          name
+        }
+      }).then(function(res) {
+        $('#burger').val('');
+        getBurgers();
+      });
+    }
+  </script>
+
+
+</body>
+
+</html>
