@@ -34,7 +34,7 @@ connection.connect(function(err) {
   });
 
   connection.query("truncate table burgers", function(err, data) {
-  	console.log(err, data); 
+  	console.log(err, data);
   });
 });
 
