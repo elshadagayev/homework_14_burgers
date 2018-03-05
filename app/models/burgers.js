@@ -32,7 +32,7 @@ class Burgers {
 	}
 
 	setHTMLRoutes () {
-		this.app.get("/", (req, res) => {
+		this.app.get("/index", (req, res) => {
 			res.render("index")
 		});
 	}

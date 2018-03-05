@@ -1,11 +1,21 @@
 var mysql = require("mysql");
 
-var connection = mysql.createConnection({
+const db_config_pub = {
   host: "us-cdbr-iron-east-05.cleardb.net",
   user: "b146266250c251",
   password: "22cd5e65",
   database: "heroku_9f87f8c18c30fd2"
-});
+};
+
+const db_config_dev = {
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "burgers_db"
+}
+
+
+var connection = mysql.createConnection(db_config_dev);
 
 connection.connect(function(err) {
   if (err) {
@@ -23,7 +33,7 @@ connection.connect(function(err) {
   	console.log(err, data);
   });
 
-  connection.query("alter table burgers", function(err, data) {
+  connection.query("truncate table burgers", function(err, data) {
   	console.log(err, data);
   });
 });

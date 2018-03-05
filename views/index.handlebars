@@ -8,6 +8,7 @@
 
   <!-- Latest compiled and minified CSS & JS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -20,18 +21,19 @@
 
   <div class="container">
 
-    <div class="jumbotron">
-      <h1>Burgers</h1>
+    <div class="jumbotron text-center">
+      <img src="/images/burger.png" style="width:200px;">
       <hr>
-        <div class="form-group">
-        <h3>Eat-Da-Burger!</h3>
+        
+        <h1>Eat-Da-Burger!</h1>
         <div class="row">
-          <div class="col-lg-6" id="left"></div>
-          <div class="col-lg-6" id="right"></div>
+          <div class="col-lg-6 text-left" id="left"></div>
+          <div class="col-lg-6 text-right" id="right"></div>
         </div>
         <form>
-          <input type="text" id="burger" class="form-control">
-          <button id="submit" type="button" class="btn btn-primary">Submit</button>
+          <input type="text" id="burger" class="form-control text-center" placeholder='Enter a burger you want to eat and click the "Submit" button'>
+          <br>
+          <button id="submit" type="button" class="btn btn-primary form-control">Submit</button>
         </div>
       </form>
     </div>
@@ -44,76 +46,7 @@
 
   </div>
 
-  <script>
-  $(document).ready(function() {
-    $('form').on('submit', function(e) {
-      e.preventDefault();
-      insertBurger();
-    })
-    getBurgers();
-
-    $('#submit').on('click', insertBurger);
-  });
-
-  function getBurgers () {
-    $.ajax({
-      url: '/api/burgers',
-      method: 'GET',
-      dataType: 'JSON',
-    }).then(function(res) {
-      $('#left,#right').html('');
-      for(let i in res) {
-        var burger = res[i];
-        if(burger.devoured) {
-          let div = $('<div/>');
-          div.html(burger.id + ' ' + burger.name);
-          $('#right').append(div);
-        } else {
-          let div = $('<div/>');
-          let button = $('<button />');
-          div.append(burger.id);
-          div.append(burger.name);
-          div.append(button);
-          button.html('Devour it!');
-          button.on('click', function() {
-            return (function(burger){
-              $.ajax({
-                url: '/api/burgers',
-                method: 'PUT',
-                dataType: 'JSON',
-                data: {
-                  id: burger.id,
-                  devoured: true
-                },
-                complete: function () {
-                  getBurgers();
-                }
-              });
-            })(res[i]);
-          });
-          $('#left').append(div)
-        }
-      }
-    });
-  }
-
-  function insertBurger() {
-      const name = $('#burger').val().trim();
-      if(!name)
-        return alert("Type burger name");
-      $.ajax({
-        url: '/api/burgers/new',
-        method: 'POST',
-        dataType: 'JSON',
-        data: {
-          name
-        }
-      }).then(function(res) {
-        $('#burger').val('');
-        getBurgers();
-      });
-    }
-  </script>
+  <script src="/js/view.js"></script>
 
 
 </body>

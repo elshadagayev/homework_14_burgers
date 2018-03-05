@@ -1,0 +1,30 @@
+#burger {
+	padding: 50px;
+}
+
+#left div {
+	margin-bottom: 20px;
+	clear: both;
+	float: none;
+}
+
+#left span {
+	padding: 10px;
+	border: 1px solid #ccc;
+	background: #fff;
+	box-sizing: border-box;
+	display: inline-block;
+	min-width: 50%;
+}
+#left button {
+	margin-left: 20px;
+}
+
+#right div {
+	border: 1px solid #ccc;
+	background: #fff;
+	box-sizing: border-box;
+	display: inline-block;
+	padding: 10px;
+	min-width: 50%;
+}
