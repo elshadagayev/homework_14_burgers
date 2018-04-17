@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="aaa"></div>
+<script>
+	var div = document.querySelector('#aaa');
+	var button;
+	for(var i = 0; i < 10; i++) {
+		button = document.createElement('button');
+		button.innerHTML = 'click';
+		div.appendChild(button);
+		button.onclick = function() {
+			alert(i);
+		}
+	}	
+</script>
+</body>
+</html>

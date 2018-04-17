@@ -1,0 +1,8 @@
+{
+	"name": "Node.js Getting Started",
+	"description": "Some description",
+	"repository": "https://git.heroku.com/secure-temple-17543.git",
+	"logo": "http://node-js-sample.herokuapp.com/node.svg",
+	"keywords": ["node", "express", "static"],
+	"image": "heroku/nodejs"
+}
